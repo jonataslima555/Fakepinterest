@@ -1,0 +1,58 @@
+{% extends "homepage.html" %}
+
+{% block titulo %}
+Perfil - Usuario
+{% endblock %}
+
+{% block body %}
+
+
+    {% include "navbar.html" %}
+    
+    {% if form %}
+    {{ form.csrf_token }}
+    <div class="bloco-add-img">
+        <h2>alondoido - Enviar foto</h2>
+
+        <div class="bloco-input-botao">
+            <div class="bloco-arquivo">
+                <h1>
+                    Perfil do Usuario: {{ usuario.username }}
+                </h1>
+                {{ form.foto(class="botao-arquivo") }}
+                <p>Nenhum arquivo escolhido</p>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {{ form.botao_confirmacao(class="botao-login") }}
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    {% for foto in usuario.fotos %}
+    <div class="bloco-imagem">
+        <img src="{{ url_for('static', filename='fotos_post/{}'.format(foto.imagem)) }}">
+    </div>
+    {% endfor %}
+
+    <style>
+        /* Add this CSS to your stylesheet */
+
+.bloco-imagem {
+    display: inline-block;
+    margin: 10px; /* Adjust the margin as needed */
+}
+
+.bloco-imagem img {
+    max-width: 400px; /* Set the maximum width for the images */
+    height: auto;
+    display: block;
+}
+
+    </style>
+
+
+
+{% endblock %}
